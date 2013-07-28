@@ -1,0 +1,409 @@
+@charset "utf-8";
+/* CSS Document */
+body, html {
+	padding:0px;
+	margin:0;
+	height:100%;
+	background-image:url(../images/template_images/background.jpg);
+}
+#container,#leftmenu,#content,#footer {
+	margin: 0 auto;
+	}
+#leftmenu,#content {
+	float:left;
+	margin-top: 5px;
+}
+#header {
+	margin: 0 auto;
+	height: 200px;
+	background-image:url(../images/template_images/logo.gif);
+	width:100%;
+	background-repeat: no-repeat;
+	background-position:center top;
+}
+
+/* Общий, обхватывающий блок с полупрозрачным фоном */
+
+#container {
+	margin-top:5px;
+	width: 950px;
+	min-height:100%;
+	background-color: rgba(0,0,0,0.2);
+}
+
+/* Блок левого меню и ссылки с display:block */
+
+#leftmenu {
+	box-shadow: 0 0 20px rgba(0,0,0,0.5);
+	width: 180px;
+	height: 105%;
+	margin: 43px 0 0 5px;
+	background-color:white;
+}
+A.menu {
+	display:block;
+	height:18px;
+	padding: 7px 0 5px 8px;
+	border-bottom:1px solid #a45000;
+	border-left:5px solid #a45000;
+	background-color: #d76a01;
+	font:bold 11.5pt/10pt "Segoe print","Trebuchet MS",tahoma;
+	text-decoration: none;
+	color: white;
+	position: relative;
+	}
+A.menu:hover {
+	color: #d76a00;
+	border-bottom: 1px solid #a45000;
+	border-left: 5px solid #a45000;
+	background:white none;
+}
+
+/* блок контента, в который не входит левое меню */
+
+#content {
+	width: 758px;
+	background-color: white;
+	border-radius:6px;
+	box-shadow: 0 0 20px rgba(0,0,0,0.5)
+	}
+
+/* Блок новостей и его шапка */
+
+#news {
+	float:left;
+	margin:4px;
+	width:458px;
+	border-radius:4px;
+}
+#newsshapka{
+	height:25px;
+	width:100%;
+	border-radius:6px;
+	background-image: url(../images/template_images/newsback.jpg);
+	}
+
+/* Невидимая таблица новостей */
+
+.newstd{
+	text-align:left;
+	padding: 0 7px 10px 5px;
+	}
+.newstd.middle {
+	border-top: 1px solid #004d75;
+	border-bottom: 1px solid #004d75;
+}
+span.newsdate {
+	font:10pt sans-serif;
+	color: grey;
+}
+.newslink, .newslink1 {
+	margin:0;
+	padding:0;
+	display:block;
+	line-height: 13pt;
+	color: black;
+	font: 10pt sans-serif;
+	font-weight: bold;
+	text-decoration:none;
+	display:inline;
+	text-align: left;
+}
+.newslink:hover {
+	color: black;
+	}
+p.news {
+	font: 10pt/11pt sans-serif;
+	margin:0;
+	margin-top:5px;
+	text-align: justify;
+}
+p.news a {
+	text-align: left;
+}
+.newslink1 {
+	font:9.5pt sans-serif;
+	color: #00689d;
+	text-align: left;
+}
+
+
+/* Блок с таблицами результатов и шапка блока */
+
+
+#results {
+	width: 286px;
+	float:left;
+	margin: 4px;
+	margin-left:2px;
+	font:10.5pt "Microsoft Sans Serif";
+}
+#resultsshapka {
+	width:100%;
+	height:25px;
+	background-image:url(../images/template_images/newsbackresult.jpg);
+	background-repeat:no-repeat;
+	border-radius: 6px;
+}
+
+
+/* Таблица результатов 1,2 */
+
+
+#resultstableA,#resultstableB {
+	margin-top:5px;
+	width:100%;
+	border-collapse: collapse;
+	background-color: #f7f7f7;
+}
+.resultstdA,.resultstdB {
+	color: #3c3c3c;
+	margin:0;
+	padding:5px;
+	text-align: center;
+	vertical-align: middle;
+	border: 1px solid #7c0000;
+	border-top:none;
+
+}
+.resultstdA.top,.resultstdB.top {
+	color: white;
+	padding: 2px;
+	background-color: #560000;
+	font-size: 11pt;
+	}
+/* Таблица результатов 2 */
+#resultstableB {
+	background-color: #f8f1f1;
+}
+.resultstdB {
+	border: 1px solid #434343;
+	border-top:none;
+}
+.resultstdB.top {
+	background-color: #434343;
+	}
+/* Общий вид счетов для обеих таблиц результатов */
+.resultstd.score {
+	width: 15%;
+	padding:0;
+	font: bold 12pt Arial, Helvetica, sans-serif;
+}
+
+/* ФУТЕР и его помощник */
+#rasporka {
+	height:60px;
+	clear:both;
+	}
+#footer {
+	clear: both;
+	width:940px;
+	margin-top:-55px;
+	background-color: white;
+	border-radius:6px;
+	box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        padding:2px;
+	}
+/* ----------------------СТРАНИЦА 10 НОВОСТЕЙ-------------------------  */
+#pg_news_shapka {
+	margin: 5px;
+	height: 40px;
+	border-radius: 6px;
+	box-shadow: 0 0 10px grey;
+	background-image: url(../images/template_images/pg_news_shapka.jpg);
+}
+#pg_news_content {
+	margin: 6px;
+	border-radius: 6px;
+	padding:0;
+}
+#pg_news_table {
+	width: 100%;
+	margin-bottom:10px;
+	border-collapse:collapse;
+}
+.pg_news_td {
+    font: 10pt/11.5pt sans-serif;
+	padding-right: 10px;
+	height: 20px;
+	text-align: left;
+}
+.pg_news_td.top {
+	background-image: url(../images/template_images/pg_news_td_top.jpg);
+	color: white;
+	text-align: right;
+}
+.pg_news_td.middle {
+	padding: 5px;
+	text-align: justify;
+}
+.pg_news_td.bottom {
+	border-top: 1px solid #808080;
+	padding-left: 10px;
+}
+p.pg_news_text {
+	font: 10pt/12pt sans-serif;
+	padding: 0;
+	margin:3px;
+	text-align: justify;
+	text-indent: 40px;
+}
+a.pg_news_name {
+	margin-left: 20px;
+	font: bold 11.5pt/11.5pt sans-serif;
+	text-decoration: none;
+	color: black;
+}
+a.pg_news_links {
+	font: 10pt/11.5pt sans-serif;
+	color: #6f7b9f;
+	text-decoration: none;
+}
+a.pg_news_links:hover {
+	text-decoration: underline;
+}
+img.pg_news_image {
+	box-shadow: 0 0 5px rgba(0,0,0,0.3);
+	padding: 1px;
+	margin-left: 7px;
+	margin-top: 2px;
+	border: 1px solid grey;
+	float: right;
+	height: 170px;
+}
+
+/* ----------------------СТРАНИЦА НОВОСТЕЙ - НАВИГАЦИЯ-------------------------  */
+
+#pg_news_pagecount_table {
+	width: 100%;
+	background-color: #c9c9c9;
+	text-align: center;
+	padding: 0;
+	border: none;
+	border-collapse: collapse;
+}
+.pg_news_pagecount_td {
+	padding: 0;
+	width: 200px;
+}
+.pg_news_pagecount_td.links {
+	border-left: 1px solid grey;
+	border-right: 1px solid grey;
+	width: auto;
+}
+a.pg_news_pagecountlink {
+	color: #464646;
+	margin: 5px;
+	font: 10pt tahoma;
+}
+a.pg_news_nextprev {
+	width: 100%;
+	color: #464646;
+	font: 10.5pt tahoma;
+	display: block;
+	text-decoration: none;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+a.pg_news_nextprev:hover {
+	background-color: #e4e4e4;
+}
+
+/* ----------------------СТРАНИЦА С ОДНОЙ НОВОСТЬЮ-------------------------  */
+#novost_table {
+	width: 100%;
+	margin-top: 6px;
+	border-collapse: collapse;
+	border: 1px solid white;
+	border-top: 7px solid #004e75;
+	text-align: right;
+}
+.novost_td {
+	padding: 5px;
+	border: 1px solid #e6eaec;
+}
+.novost_td.name {
+	padding: 3px;
+	padding-right: 5px;
+	background-color: #e6eaec;
+	color: black;
+	font: 16pt "Trebuchet MS";
+}
+P.novost_data {
+	margin: 0;
+	font: 9pt sans-serif;
+	color: #8d8d8d;
+}
+.novost_td.text {
+	color: #2c2c2c;
+	text-align: justify;
+	text-indent: 25px;
+	font: 11pt/13.5pt "Trebuchet MS",georgia;
+	background-color: #fafafa;
+}
+img.novost_image {
+	float: left;
+	box-shadow: 0 0 5px rgba(0,0,0,0.3);
+	padding: 1px;
+	margin-right: 10px;
+	margin-top: 2px;
+	border: 1px solid grey;
+}
+
+/* ----------------------страница с одной новость КОММЕНТАРИИ-------------------------  */
+
+#comments_table {
+	margin-top: 6px;
+	border-collapse: collapse;
+	width: 100%;
+}
+
+#comments_td_shapka {
+	font: 12pt sans-serif,tahoma;
+	color: #2a2a2a;
+	padding: 2px 0 2px 5px;
+	border-top: 5px solid #844343;
+	background-color: #fbf6f6;
+}
+.comments_td {
+	border-bottom: 1px solid #D8D8D8;
+	padding: 5px;
+	font: 10pt tahoma;
+}
+p.comment_username, p.comment_datetime, p.comment_text {
+	margin: 0;
+}
+p.comment_username {
+	font-weight: bold;
+	display: inline;
+}
+p.comment_datetime {
+	color: #666;
+	display: inline;
+}
+p.comment_text {
+	margin-top: 2px;
+}
+
+/* ----------------------страница с одной новость комментарии ФОРМА ДОБАВЛЕНИЯ-------------------------  */
+#comment_form_table {
+	margin-top: 6px;
+	padding-left: 5px;
+}
+
+p.comment_form {
+	margin: 0;
+	font: 10pt tahoma;
+}
+#comment_form_button {
+	font: 11pt tahoma;
+	color: white;
+	padding: 7px;
+	border: none;
+	background-color: #1a73a0;
+	margin-top: 0;
+}
+#comment_form_button:hover {
+	background-color: #185f82;
+	cursor: pointer;
+}

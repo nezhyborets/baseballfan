@@ -1,0 +1,39 @@
+table.albums_list_table {
+    width:100%;
+    table-layout: fixed;
+}
+
+td.albums_list_td {
+    width:250px;
+    vertical-align:top;
+}
+
+div.photo_album_containter {
+    height: 200px;
+    overflow: hidden;
+}
+
+div.albums_list_imageContainer_div {
+    height: 200px;
+    overflow: hidden;
+}
+
+div.photo_album_description_td {
+    position: relative;
+    top: -50px;
+    height: 50px;
+    background-color: rgba(0,78,117,0.9);
+    color: #ffffff;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-size: 11pt;
+    padding: 5px;
+}
+
+div.photo_album_description_td:HOVER {
+    cursor: pointer;
+    background-color: rgba(0,78,117,1);
+}
+
+a.album_list_link {
+    text-decoration: none;
+}

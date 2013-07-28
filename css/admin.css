@@ -1,0 +1,346 @@
+/* CSS Document */
+body, html {
+	padding:0px;
+	margin:0;
+	height: 100%;
+}
+#admin_container { 
+    width: 80%;
+	min-width: 800px;
+	margin: 0 auto;
+	height: auto;
+	min-height: 600px;
+}
+#admin_container_table { 
+    width: 100%;
+}
+#admin_menu {
+	width: 250px;
+	vertical-align: top;
+}
+
+table#admin_common_list_table {
+    border: 1px solid #a9a9a9;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#admin_content {
+	background-color: #F7F7F7;
+	vertical-align: top;
+    overflow: hidden;
+}
+
+A.admin_menu_link {
+	display: block;
+	margin: 5px;
+	padding: 15px;
+	border: 1px solid #EAEAEA;
+	background-color: #F5F5F5;
+	text-decoration: none;
+	color: #600;
+	font: 13pt tahoma;
+}
+
+A.admin_menu_link:hover {
+    background-color: #EAEAEA;
+}
+
+A.admin_add_button {
+	display: block;
+	width: 98%;
+	background-color: #CCC;
+	margin: 10px;
+	text-align: center;
+	padding: 20px 0 20px 0;
+	font: bold 18pt sans-serif;
+	text-decoration: none;
+	color: #FBFBFB;
+}
+
+A.admin_add_button:hover {
+	background-color: #D7D7D7;
+	color: #666;
+}
+
+/* Admin part - cells of the table */
+td.admin_table {
+    font: 11.5pt sans-serif;
+    padding: 5px;
+    text-align: left;
+    vertical-align: top;
+}
+
+td.admin_table.table_name_td {
+    text-align: center;
+    font: 18pt sans-serif;
+    font-weight: bold;
+}
+
+td.admin_table.image_td {
+    width: 150px;
+    vertical-align: middle;
+    text-align: center;
+}
+
+td.admin_table.description_td {
+    line-height: 15pt;
+}
+
+.admin_table.buttons_td {
+    width: 40px;
+    background-color: #e8e8e8;
+}
+
+/* Admin part - buttons in the right column of the table */
+a.admin_table_buttons {
+    display: block;
+    width: 40px;
+    height: 40px;
+    background-size: 100%;
+    vertical-align: middle;
+    margin: 0 auto;
+}
+
+a.admin_table_buttons.delete {
+    background: url("../images/template_images/delete_button_image.png") no-repeat center;
+    background-size: 80%;
+}
+
+a.admin_table_buttons.delete:hover {
+    background-size: 100%;
+}
+
+A.admin_table_buttons.edit {
+    background-image: url(../images/template_images/admin_edit_button.jpg);
+}
+
+A.admin_table_buttons.edit:hover {
+    background-image: url(../images/template_images/admin_edit_button_hover.jpg);
+}
+
+/* Admin part - description cell contents */
+a.admin_table.title_link {
+    font: bold 11.5pt/11.5pt sans-serif;
+    color: black;
+}
+a.admin_table.title_link:hover {
+    text-decoration: none;
+}
+
+/* Admin part - Adding files form */
+div.files_adding_form {
+    float: left;
+}
+div.files_adding_form#container {
+    background-color: #cccccc;
+    width: 100%;
+    float: left;
+    padding: 10px;
+}
+
+div.files_adding_form#title {
+    font: 14pt sans-serif;
+    font-weight: bold;
+}
+
+/* --------------------------------------------------- БЛОК ВЫВОДА 10 НОВОСТЕЙ */
+#pg_news_table {
+	width: 100%;
+	border: 1px solid #bababa;
+	border-right: none;
+	border-left: none;
+	border-collapse: collapse;
+}
+.pg_news_td {
+    font: 10pt/11.5pt sans-serif;
+	padding-right: 10px;
+	height: 20px;
+	text-align: left;
+}
+.pg_news_td.middle {
+	padding: 5px;
+}
+p.pg_news_text {
+	font: 10pt/12pt sans-serif;
+	padding: 0;
+	margin:3px;
+	text-align: justify;
+}
+
+img.pg_news_image {
+	height: 100px;
+	padding: 1px;
+	margin-left: 7px;
+	margin-top: 2px;
+	border: 1px solid grey;
+	float: right;
+}
+/* --------------------------------------------------- блок вывода 10 новостей КНОПКИ РЕДАКТИРОВАНИЯ НОВОСТЕЙ */
+.admin_news_edit {
+	width: 40px;
+	background-color: #e8e8e8;
+	border: 1px solid #bababa;
+	vertical-align: top;
+}
+
+/* ------------------------------------- блок вывода 10 новотей ПЕРЕЛИСТЫВАНИЕ СТРАНИЦ---------------------------- */
+#pg_news_pagecount_table {
+	width: 100%;
+	background-color: #c9c9c9;
+	text-align: center;
+	padding: 0;
+	border: none;
+	border-collapse: collapse;
+}
+.pg_news_pagecount_td {
+	padding: 0;
+	width: 200px;
+}
+.pg_news_pagecount_td.links {
+	border-left: 1px solid grey;
+	border-right: 1px solid grey;
+	width: auto;
+}
+a.pg_news_pagecountlink {
+	color: #464646;
+	margin: 5px;
+	font: 10pt tahoma;
+}
+a.pg_news_nextprev {
+	width: 100%;
+	color: #464646;
+	font: 10.5pt tahoma;
+	display: block;
+	text-decoration: none;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+a.pg_news_nextprev:hover {
+	background-color: #e4e4e4;
+}
+
+/* ------------------------------------- страница ДОБАВЛЕНИЯ И РЕДАКТИРОВАНИЯ НОВОСТИ---------------------------- */
+#admin_newsadd_table {
+	margin-left: 15px;
+}
+.admin_newsadd_input_name {
+	margin: 0;
+	font: 13pt sans-serif;
+}
+.admin_newsadd_input_name.header {
+	margin: 0;
+	font: 25pt sans-serif;
+}
+.admin_newsadd_td {
+	border-bottom: 1px solid #bababa;
+	padding: 10px;
+}
+.admin_newsadd_td.header {
+	border:none;
+	margin: 0;
+	padding: 0;
+	padding: 10px 0 0 10px;
+}
+
+.admin_texted_button {
+    padding: 10px;
+    border: 1px solid grey;
+    font: 13pt tahoma;
+}
+
+.admin_texted_button:hover {
+    cursor: pointer;
+}
+
+.admin_texted_button.save {
+    background-color: mediumseagreen;
+    color: #ffffff;
+}
+.admin_texted_button.save:hover {
+    background-color: seagreen;
+}
+
+.admin_texted_button.delete {
+    background-color: indianred;
+    color: #ffffff;
+}
+
+.admin_texted_button.delete:hover {
+    background-color: #bd4c4c;
+}
+
+img.pg_news_image.edit {
+	float: left;
+	margin-right: 5px;
+}
+
+/* ---------------------------------КОММЕНТАРИИ НА СТРАНИЦЕ РЕДАКТИРОВАНИЯ----------------------------------------*/
+
+#comments_table {
+	margin-top: 6px;
+	border-collapse: collapse;
+	width: 100%;
+}
+
+#comments_td_shapka {
+	font: 12pt sans-serif,tahoma;
+	color: #2a2a2a;
+	padding: 2px 0 2px 5px;
+	border-top: 5px solid #844343;
+	background-color: #fbf6f6;
+}
+.comments_td {
+	border-bottom: 1px solid #D8D8D8;
+	padding: 5px;
+	font: 10pt tahoma;
+}
+p.comment_username, p.comment_datetime, p.comment_text {
+	margin: 0;
+}
+p.comment_username {
+	font-weight: bold;
+	display: inline;
+}
+p.comment_datetime {
+	color: #666;
+	display: inline; 
+}
+p.comment_text {
+	margin-top: 2px;
+}
+
+A.comment_delete {
+	display: block;
+	width: 30px;
+	color: #F00000;
+	font: bold 12pt courier;
+	text-decoration: none;
+	text-align: center;
+	vertical-align: middle;
+}
+
+A.comment_delete:hover {
+	font-size: 15pt;
+}
+
+/* ------------------------------------- страница ОТВЕТА на добавление и редактирование---------------------------- */
+
+#admin_addedit_result {
+	color: #666;
+	margin: 10px;
+	font: 25pt sans-serif;
+}
+.admin_addedit_result_1more {
+	display: inline-block;
+	margin: 5px;
+	padding: 10px;
+	font: 15pt sans-serif;
+	color: black;
+	background-color: #DBDBDB;
+	text-decoration: none;
+}
+.admin_addedit_result_1more:hover {
+	background-color: #bababa;
+	cursor: pointer;
+}
