@@ -6,15 +6,15 @@
 	function zapros_novosti($query_result)
 	{
 			  $stroka = mysql_fetch_row ($query_result);
-			  $novost['tbl_key'] = $stroka[0];
-			  $novost['tbl_date'] = $stroka[1];
-			  $novost['tbl_name'] = $stroka[2];
-			  $novost['tbl_short_text'] = $stroka[3];
-			  $novost['tbl_text'] = $stroka[4];
-			  $novost['tbl_author'] = $stroka[5];
-			  $novost['tbl_image_link'] = $stroka[6];
-			  $novost['tbl_thumbnail_link'] = $stroka[7];
-			  return $novost;
+			  $newsItem['tbl_key'] = $stroka[0];
+			  $newsItem['tbl_date'] = $stroka[1];
+			  $newsItem['tbl_name'] = $stroka[2];
+			  $newsItem['tbl_short_text'] = $stroka[3];
+			  $newsItem['tbl_text'] = $stroka[4];
+			  $newsItem['tbl_author'] = $stroka[5];
+			  $newsItem['tbl_image_link'] = $stroka[6];
+			  $newsItem['tbl_thumbnail_link'] = $stroka[7];
+			  return $newsItem;
 	}
 	
 	function thumbnail($orig_img_name) 
