@@ -1,97 +1,98 @@
 <?php
-require_once './config/login.php';
-require_once './config/functions.php';
-require_once './config/db_connect.php';
+require_once(__DIR__ . '/../config/login.php');
+require_once(__DIR__ . '/../config/functions.php');
+require_once(__DIR__ . '/../config/db_connect.php');
+require_once(__DIR__ . '/../Model/NewsList.php');
 
-$query = "SELECT COUNT(*) FROM tbl_news";
-$query_result = mysql_query ($query)
-  or die ("Невозможно сделать запрос");
-$allrows = mysql_fetch_array ($query_result);
+$newsPerPage = 10;
 
-$pgnumber = intval($_GET['pgnumber']);
-if ($_GET['pgnumber']) {
-	$page_limit1 = $pgnumber*10-10;
-	$query = "SELECT * FROM tbl_news ORDER BY id DESC LIMIT $page_limit1,10";
-} else {
-	$query = "SELECT * FROM tbl_news ORDER BY id DESC LIMIT 0,10";
+$db = db();
+$allRows = NewsList::allNewsCount($db);
+
+$pageNumber = 0;
+if (isset($_GET['pageNumber'])) {
+    $pageNumber = intval($_GET['pageNumber']);
 }
 
-$query_result = mysql_query ($query)
-  or die ("Невозможно сделать запрос");
-$rows = mysql_num_rows ($query_result);
+$news = NewsList::allNews($db, isset($_GET['pageNumber']) ? intval($_GET['pageNumber']) : null, $newsPerPage);
 
 ?>
 
 <div id="pg_news_shapka">
 </div>
-  <div id="pg_news_content">
-	<?php
-	
-    for ($row=$rows;$row>=1;$row--) {
-	
-    $novost = zapros_novosti($query_result);
-	$comments_count = comments_count($novost[tbl_key]);
-	if ($novost['tbl_thumbnail_link']) {
-	$thumbnail = ('images/temp_news_images/'.$novost['tbl_thumbnail_link']);
-	}
-    echo ('
-            <table cellpadding="0" cellspasing="0" id="pg_news_table">
+<div id="pg_news_content">
+    <?php
+
+    for ($row = count($news); $row >= 1; $row--) {
+
+        /** @var $newsItem NewsItem */
+        $newsItem = $news[$row - 1];
+
+        $comments_count = $newsItem->commentsCount();
+
+        if ($newsItem->getThumbnailLink()) {
+            $thumbnail = ('images/temp_news_images/'.$newsItem->getThumbnailLink());
+        } ?>
+            <table id="pg_news_table">
               <tr>
                 <td class="pg_news_td top">
-                Опубликовано: '.$novost[tbl_date].' | Автор: '.$novost[tbl_author].'
+                Опубликовано: <?php echo $newsItem->getCreationDate(); ?> | Автор: <?php echo $newsItem->getAuthor(); ?>
                 </td>
               </tr>
               <tr>
                 <td class="pg_news_td middle">
-                  <a href="index.php?page=newswithcomments&id='.$novost[tbl_key].'" class="pg_news_name">'.$novost[tbl_name].'</a>');
-        if ($novost[tbl_image_link]) {
-            echo ('
-			<a href="images/news_images/'.$novost[tbl_image_link].'">
-			<img align="left" border="0" class="pg_news_image" src="'.$thumbnail.'" />
-			</a>');
-        }
-    echo ('<p class="pg_news_text">'.$novost[tbl_text].'</p>
+                  <a href="index.php?page=newswithcomments&id=<?php echo $newsItem->getId(); ?>" class="pg_news_name"><?php echo $newsItem->getTitle() ?></a>
+                 <?php
+                 if ($newsItem->getImageLink()) {
+                 ?>
+			<a href="images/news_images/ <?php echo $newsItem->getImageLink()?>">
+			<img border="0" class="pg_news_image" src="<?php echo $thumbnail ?>" />
+			</a>
+        <?php } ?>
+        <p class="pg_news_text"><?php echo $newsItem->getText() ?></p>
                 </td>
               </tr>
               <tr>
                 <td class="pg_news_td bottom">
-                <a href="index.php?page=newswithcomments&id='.$novost[tbl_key].'" class="pg_news_links">Комментарии ('.$comments_count.')</a> | <a href="index.php?page=newswithcomments&id='.$novost[tbl_key].'" class="pg_news_links">Оставить комментарий</a>
+                <a href="index.php?page=newswithcomments&id=<?php $newsItem->getId() ?>" class="pg_news_links">
+                    Комментарии (<?php echo $comments_count ?>)
+                </a> | <a href="index.php?page=newswithcomments&id=<?php $newsItem->getId() ?>" class="pg_news_links">Оставить комментарий</a>
                 </td>
               </tr>
             </table>
-        ');}
-   ?>
-  </div>
-      <table id="pg_news_pagecount_table" cellpaddin="0" cellspacing="0">
-        <tr>
-          <td class="pg_news_pagecount_td">
-          <?php
-		      $news_pages=intval(($allrows[0]-1)/10);
-		      $news_pages1=$news_pages+1;
-		      if ($_GET['pgnumber']) {
-			  echo ('<a href="index.php?page=newslist&pgnumber='.($pgnumber-1).'" class="pg_news_nextprev left">&lt Предыдущая</a>');
-		  }
-			  ?>
-          </td>
-          <td class="pg_news_pagecount_td links">
+    <?php }
+    ?>
+</div>
+<table id="pg_news_pagecount_table">
+    <tr>
+        <td class="pg_news_pagecount_td">
+            <?php
+            $news_pages = intval(($allRows[0] - 1) / 10);
+            $news_pages1 = $news_pages + 1;
+            if (isset($_GET['pageNumber'])) {
+                echo('<a href="index.php?page=newslist&pageNumber=' . ($pageNumber - 1) . '" class="pg_news_nextprev left">&lt Предыдущая</a>');
+            }
+            ?>
+        </td>
+        <td class="pg_news_pagecount_td links">
             <a class="pg_news_pagecountlink" href="index.php?page=newslist">1-10</a><?php
-			for ($i=1; $i<=$news_pages; $i++) {
-				$id=$i+1;
-				echo ('<a class="pg_news_pagecountlink" href="index.php?page=newslist&pgnumber='.($id).'">'.((10+$i*10)-9).'-'.(10+10*$i).'</a>');
-			}
-			?>
-          </td>
-          <td class="pg_news_pagecount_td">
-          <?php
-		  if (isset($_GET['pgnumber'])) {
-		      if ($_GET['pgnumber'] < $news_pages1) {
-			  echo ('<a href="index.php?page=newslist&pgnumber='.($pgnumber+1).'" class="pg_news_nextprev">Следующая &gt</a>');
-			  }
-		  } else {
-			  echo ('<a href="index.php?page=newslist&pgnumber=2" class="pg_news_nextprev">Следующая &gt</a>');
-		  }
-		  ?>
-          </td>
-        </tr>
-    </table>
+            for ($i = 1; $i <= $news_pages; $i++) {
+                $id = $i + 1;
+                echo('<a class="pg_news_pagecountlink" href="index.php?page=newslist&pageNumber=' . ($id) . '">' . ((10 + $i * 10) - 9) . '-' . (10 + 10 * $i) . '</a>');
+            }
+            ?>
+        </td>
+        <td class="pg_news_pagecount_td">
+            <?php
+            if (isset($_GET['pageNumber'])) {
+                if ($_GET['pageNumber'] < $news_pages1) {
+                    echo('<a href="index.php?page=newslist&pageNumber=' . ($pageNumber + 1) . '" class="pg_news_nextprev">Следующая &gt</a>');
+                }
+            } else {
+                echo('<a href="index.php?page=newslist&pageNumber=2" class="pg_news_nextprev">Следующая &gt</a>');
+            }
+            ?>
+        </td>
+    </tr>
+</table>
     

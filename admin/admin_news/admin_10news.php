@@ -11,15 +11,13 @@ $allrows = mysql_fetch_array ($query_result);
 $deleteid = $_GET['deleteid'];
 
 if ($_GET['deleteid']) {
-
-
 	$query = "DELETE FROM tbl_news WHERE id=$deleteid";
 	$query_result = mysql_query ($query) or die (mysql_error());
 }
 
-$pgnumber = intval($_GET['pgnumber']);
-if ($_GET['pgnumber']) {
-	$page_limit1 = $pgnumber*10-10;
+$pageNumber = intval($_GET['pageNumber']);
+if ($_GET['pageNumber']) {
+	$page_limit1 = $pageNumber*10-10;
 	$query = "SELECT * FROM tbl_news ORDER BY id DESC LIMIT $page_limit1,10";
 } else {
 	$query = "SELECT * FROM tbl_news ORDER BY id DESC LIMIT 0,10";
@@ -48,7 +46,7 @@ $rows = mysql_num_rows ($query_result);
                 Опубликовано: '.$novost[tbl_date].' | Автор: '.$novost[tbl_author].'
                 </td>
 				<td rowspan="2" class="admin_news_edit">
-				<a href="index.php?admin_page=admin_edit_new&id='.$novost[tbl_key].'" class="admin_news_edit edit"></a> <a href="index.php?page=newslist&pgnumber='.$_GET[pgnumber].'&deleteid='.$novost[tbl_key].'" class="admin_news_edit delete">DEL</a>
+				<a href="index.php?admin_page=admin_edit_new&id='.$novost[tbl_key].'" class="admin_news_edit edit"></a> <a href="index.php?page=newslist&pageNumber='.$_GET[pageNumber].'&deleteid='.$novost[tbl_key].'" class="admin_news_edit delete">DEL</a>
 				</td>
               </tr>
               <tr>
@@ -70,8 +68,8 @@ $rows = mysql_num_rows ($query_result);
           <?php
 		      $news_pages=intval(($allrows[0]-1)/10);
 		      $news_pages1=$news_pages+1;
-		      if ($_GET['pgnumber']) {
-			  echo ('<a href="index.php?page=newslist&pgnumber='.($pgnumber-1).'" class="pg_news_nextprev left">&lt Предыдущая</a>');
+		      if ($_GET['pageNumber']) {
+			  echo ('<a href="index.php?page=newslist&pageNumber='.($pageNumber-1).'" class="pg_news_nextprev left">&lt Предыдущая</a>');
 		  }
 			  ?>
           </td>
@@ -79,18 +77,18 @@ $rows = mysql_num_rows ($query_result);
             <a class="pg_news_pagecountlink" href="index.php?page=newslist">1-10</a><?php
 			for ($i=1; $i<=$news_pages; $i++) {
 				$id=$i+1;
-				echo ('<a class="pg_news_pagecountlink" href="index.php?page=newslist&pgnumber='.($id).'">'.((10+$i*10)-9).'-'.(10+10*$i).'</a>');
+				echo ('<a class="pg_news_pagecountlink" href="index.php?page=newslist&pageNumber='.($id).'">'.((10+$i*10)-9).'-'.(10+10*$i).'</a>');
 			}
 			?>
           </td>
           <td class="pg_news_pagecount_td">
           <?php
-		  if (isset($_GET['pgnumber'])) {
-		      if ($_GET['pgnumber'] < $news_pages1) {
-			  echo ('<a href="index.php?page=newslist&pgnumber='.($pgnumber+1).'" class="pg_news_nextprev">Следующая &gt</a>');
+		  if (isset($_GET['pageNumber'])) {
+		      if ($_GET['pageNumber'] < $news_pages1) {
+			  echo ('<a href="index.php?page=newslist&pageNumber='.($pageNumber+1).'" class="pg_news_nextprev">Следующая &gt</a>');
 			  }
 		  } else {
-			  echo ('<a href="index.php?page=newslist&pgnumber=2" class="pg_news_nextprev">Следующая &gt</a>');
+			  echo ('<a href="index.php?page=newslist&pageNumber=2" class="pg_news_nextprev">Следующая &gt</a>');
 		  }
 		  ?>
           </td>

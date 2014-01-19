@@ -2,6 +2,10 @@
   <dictionary name="Alexei">
     <words>
       <w>dbname</w>
+      <w>newsdate</w>
+      <w>newslink</w>
+      <w>newstd</w>
+      <w>newswithcomments</w>
     </words>
   </dictionary>
 </component>

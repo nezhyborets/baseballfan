@@ -1,7 +1,7 @@
 <?php
 require_once ($_SERVER['DOCUMENT_ROOT'].'./config/main_config.php');
-require_once ($_SERVER['DOCUMENT_ROOT'].'./Models/PhotoAlbum.php');
-require_once ($_SERVER['DOCUMENT_ROOT'].'./Models/Photo.php');
+require_once ($_SERVER['DOCUMENT_ROOT'].'./Model/PhotoAlbum.php');
+require_once ($_SERVER['DOCUMENT_ROOT'].'./Model/Photo.php');
 
 $allPhotoAlbums = PhotoAlbum::getAllPhotoAlbums();
 $albumsCount = count($allPhotoAlbums);

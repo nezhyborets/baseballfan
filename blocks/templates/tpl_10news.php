@@ -33,10 +33,10 @@
         <tr>
           <td class="pg_news_pagecount_td">
           <?php
-		      $news_pages=intval(($allrows[0]-1)/10);
+		      $news_pages=intval(($allRows[0]-1)/10);
 		      $news_pages1=$news_pages+1;
-		      if ($_GET['pgnumber']) {
-			  echo ('<a href="index.php?page=news&pgnumber='.($pgnumber-1).'" class="pg_news_nextprev left">&lt Предыдущая</a>');
+		      if ($_GET['pageNumber']) {
+			  echo ('<a href="index.php?page=news&pageNumber='.($pageNumber-1).'" class="pg_news_nextprev left">&lt Предыдущая</a>');
 		  }
 			  ?>
           </td>
@@ -44,18 +44,18 @@
             <a class="pg_news_pagecountlink" href="index.php?page=news">1-10</a><?php
 			for ($i=1; $i<=$news_pages; $i++) {
 				$id=$i+1;
-				echo ('<a class="pg_news_pagecountlink" href="index.php?page=news&pgnumber='.($id).'">'.((10+$i*10)-9).'-'.(10+10*$i).'</a>');
+				echo ('<a class="pg_news_pagecountlink" href="index.php?page=news&pageNumber='.($id).'">'.((10+$i*10)-9).'-'.(10+10*$i).'</a>');
 			}
 			?>
           </td>
           <td class="pg_news_pagecount_td">
           <?php
-		  if (isset($_GET['pgnumber'])) {
-		      if ($_GET['pgnumber'] < $news_pages1) {
-			  echo ('<a href="index.php?page=news&pgnumber='.($pgnumber+1).'" class="pg_news_nextprev">Следующая &gt</a>');
+		  if (isset($_GET['pageNumber'])) {
+		      if ($_GET['pageNumber'] < $news_pages1) {
+			  echo ('<a href="index.php?page=news&pageNumber='.($pageNumber+1).'" class="pg_news_nextprev">Следующая &gt</a>');
 			  }
 		  } else {
-			  echo ('<a href="index.php?page=news&pgnumber=2" class="pg_news_nextprev">Следующая &gt</a>');
+			  echo ('<a href="index.php?page=news&pageNumber=2" class="pg_news_nextprev">Следующая &gt</a>');
 		  }
 		  ?>
           </td>

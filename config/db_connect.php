@@ -2,7 +2,7 @@
 
 function db() {
     try {
-        $dbh = new PDO('mysql:host=localhost;dbname=db_baseball', 'root', '', array(
+        $dbh = new PDO('mysql:host=localhost;dbname=db_baseball;charset=utf8', 'root', '', array(
             PDO::ATTR_PERSISTENT => true,
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
         ));

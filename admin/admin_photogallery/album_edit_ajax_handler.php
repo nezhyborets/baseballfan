@@ -1,6 +1,6 @@
 <?php
 
-require_once ($_SERVER['DOCUMENT_ROOT'].'./Models/PhotoAlbum.php');
+require_once ($_SERVER['DOCUMENT_ROOT'].'./Model/PhotoAlbum.php');
 
 $error = null;
 $action = null;

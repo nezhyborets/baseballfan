@@ -1,6 +1,6 @@
 <?php
 
-require_once ($_SERVER['DOCUMENT_ROOT'].'./config/main_config.php');
+require_once (__DIR__.'/../config/main_config.php');
 /**
  * Created by JetBrains PhpStorm.
  * User: Алексей
@@ -9,8 +9,10 @@ require_once ($_SERVER['DOCUMENT_ROOT'].'./config/main_config.php');
  * To change this template use File | Settings | File Templates.
  */
 
-class Photo
+class Photo extends DatabaseRecord
 {
+    const TABLE_NAME = 'tbl_photos';
+
     const PHOTOS_FOLDER_NAME = 'photoGallery_images';
     const PHOTOS_FOLDER_PATH = '/images/photoGallery_images/';
 
@@ -28,38 +30,19 @@ class Photo
     private $thumbnail_link;
     private $album_id;
 
-    public static function photoObjectById($id) {
-        $query = "SELECT * FROM tbl_photos WHERE id=$id";
-        $query_result = mysql_query ($query)
-            or die ("Невозможно сделать запрос фотки". mysql_error());
-        $photoFromDbResultArray = mysql_fetch_array($query_result);
-        return self::photoObjectByFetchedDbArray($photoFromDbResultArray);
-    }
-
-    public static function photoObjectByFetchedDbArray($dbPhotoArray) {
-        $photoObject = new Photo();
-        $photoObject->id = $dbPhotoArray[self::ID_KEY];
-        $photoObject->date_added = $dbPhotoArray[self::DATE_ADDED_KEY];
-        $photoObject->description = $dbPhotoArray[self::DESCRIPTION_KEY];
-        $photoObject->image_link = $dbPhotoArray[self::IMAGE_LINK_KEY];
-        $photoObject->thumbnail_link = $dbPhotoArray[self::THUMBNAIL_LINK_KEY];
-        $photoObject->album_id = $dbPhotoArray[self::ALBUM_ID_KEY];
+    protected static function objectUsingPdoStatementRow($db, $row) {
+        $photoObject = new Photo($db);
+        $photoObject->id = $row[self::ID_KEY];
+        $photoObject->date_added = $row[self::DATE_ADDED_KEY];
+        $photoObject->description = $row[self::DESCRIPTION_KEY];
+        $photoObject->image_link = $row[self::IMAGE_LINK_KEY];
+        $photoObject->thumbnail_link = $row[self::THUMBNAIL_LINK_KEY];
+        $photoObject->album_id = $row[self::ALBUM_ID_KEY];
         return $photoObject;
     }
 
-    public static function photosArrayForAlbumId($id) {
-        $query = "SELECT * FROM tbl_photos WHERE ".self::ALBUM_ID_KEY."=$id";
-        $query_result = mysql_query ($query) or die ("Невозможно сделать запрос". mysql_error());
-        $rows = mysql_num_rows($query_result);
-
-        $photoObjectsArray = array();
-        for ($i = 0; $i < $rows; $i++) {
-            $photoFetchedDbResult = mysql_fetch_array($query_result);
-            $photoObject = Photo::photoObjectByFetchedDbArray($photoFetchedDbResult);
-            array_push($photoObjectsArray, $photoObject);
-        }
-
-        return $photoObjectsArray;
+    public static function photosArrayForAlbumId($db, $id) {
+        return static::objectsForSqlStatement($db, "SELECT * FROM tbl_photos WHERE ".self::ALBUM_ID_KEY."=$id");
     }
 
     public static function photosFolderPath() {

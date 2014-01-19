@@ -8,12 +8,10 @@
  */
 require_once ($_SERVER['DOCUMENT_ROOT'].'./config/main_config.php');
 require_once ($_SERVER['DOCUMENT_ROOT'].'./config/main_config.php');
-require_once ($_SERVER['DOCUMENT_ROOT'].'./Models/Photo.php');
+require_once ($_SERVER['DOCUMENT_ROOT'].'./Model/Photo.php');
 
 class PhotoAlbum
 {
-    const ID_KEY = 'id';
-    const CREATION_DATE_KEY = 'creation_date';
     const COVER_PHOTO_ID_KEY = 'cover_photo_id';
     const TITLE_KEY = 'title';
     const DESCRIPTION_KEY = 'description';

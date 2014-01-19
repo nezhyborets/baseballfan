@@ -2,20 +2,6 @@
     function imagesFolder() {
         return $_SERVER['DOCUMENT_ROOT'].'/'.IMAGES_FOLDER_NAME.'/';
     }
-
-	function zapros_novosti($query_result)
-	{
-			  $stroka = mysql_fetch_row ($query_result);
-			  $newsItem['tbl_key'] = $stroka[0];
-			  $newsItem['tbl_date'] = $stroka[1];
-			  $newsItem['tbl_name'] = $stroka[2];
-			  $newsItem['tbl_short_text'] = $stroka[3];
-			  $newsItem['tbl_text'] = $stroka[4];
-			  $newsItem['tbl_author'] = $stroka[5];
-			  $newsItem['tbl_image_link'] = $stroka[6];
-			  $newsItem['tbl_thumbnail_link'] = $stroka[7];
-			  return $newsItem;
-	}
 	
 	function thumbnail($orig_img_name) 
 	{
@@ -108,13 +94,5 @@
 												  CURDATE(),
 												  CURTIME())";
 	     $query_result = mysql_query($query) or die (mysql_error());
-	}
-	
-	function comments_count($news_id) {
-		$query = "SELECT COUNT(*) FROM tbl_news_comments WHERE news_id=$news_id";
-		$query_result = mysql_query($query) or die(mysql_error());
-		$array = mysql_fetch_row($query_result);
-		$comments_count = $array[0];
-		return $comments_count;
 	}
 ?>
