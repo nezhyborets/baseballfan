@@ -1,9 +1,10 @@
 <?php
-require_once ($_SERVER['DOCUMENT_ROOT'].'./config/main_config.php');
-require_once ($_SERVER['DOCUMENT_ROOT'].'./Model/PhotoAlbum.php');
-require_once ($_SERVER['DOCUMENT_ROOT'].'./Model/Photo.php');
+require_once (__DIR__.'/../../config/main_config.php');
+require_once (__DIR__.'/../../Model/PhotoAlbum.php');
+require_once (__DIR__.'/../../Model/Photo.php');
 
-$allPhotoAlbums = PhotoAlbum::getAllPhotoAlbums();
+$db = db();
+$allPhotoAlbums = PhotoAlbum::allPhotoAlbums($db);
 $albumsCount = count($allPhotoAlbums);
 ?>
 
@@ -11,11 +12,11 @@ $albumsCount = count($allPhotoAlbums);
     $(function() {
         var name = $( "#album_name" ),
             dialogForm = $('#dialog-form');
-            description = $( "#album_description" ),
-            allFields = $( [] ).add(name).add(description),
-            isCreate = true,
-            buttons = {},
-            albumId = 0;
+        var description = $("#album_description"),
+                allFields = $([]).add(name).add(description),
+                isCreate = true,
+                buttons = {},
+                albumId = 0;
 
         var firstButtonAction = function() {
             allFields.removeClass( "ui-state-error" );
@@ -128,12 +129,14 @@ $albumsCount = count($allPhotoAlbums);
     }
 
     for ($i = 0; $i<$itemsCount; $i++) {
-        $photoAlbumObject = null;
+        $album = null;
 
         if ($i < $albumsCount) {
-            $photoAlbumObject = $allPhotoAlbums[$i];
-            $photoAlbumId = $photoAlbumObject->getId();
-            $photoObject = Photo::photoObjectById($photoAlbumObject->cover_photo_id);
+
+            /** @var $album PhotoAlbum */
+            $album = $allPhotoAlbums[$i];
+            $photoAlbumId = $album->getId();
+            $photoObject = $album->cover();;
         }
 
         if ($i % $numberOfColumns == 0) {
@@ -141,9 +144,9 @@ $albumsCount = count($allPhotoAlbums);
         }
         ?>
         <td style="width: 20%; text-align: center; vertical-align: top;">
-            <?php if ($photoAlbumObject) { ?>
-                <a href="?admin_page=admin_albumPhotosList&id=<?php echo($photoAlbumObject->getId())?>">
-                    <img alt="<?php $photoAlbumObject->getTitle();?>" style="width:100%;" src="
+            <?php if ($album) { ?>
+                <a href="?admin_page=admin_albumPhotosList&id=<?php echo($album->getId())?>">
+                    <img alt="<?php $album->getTitle();?>" style="width:100%;" src="
                     <?php
                     if ($photoObject->image_link) {
                         echo($photoObject->image_link);
@@ -153,27 +156,27 @@ $albumsCount = count($allPhotoAlbums);
                     ?>">
                 </a>
 
-                <a href="?admin_page=admin_albumPhotosList&id=<?php echo($photoAlbumObject->getId())?>"
-                   class="admin_table title_link"
-                   id="title_<?php echo $photoAlbumId;?>">
-                    <?php echo($photoAlbumObject->getTitle());?>
-                </a>
-
-                </br>
-                <p id="description_<?php echo $photoAlbumId;?>">
-                    <?php echo($photoAlbumObject->getDescription());?>
-                </p>
-
                 <div class="admin_table buttons_td" style="width: 100%; overflow: hidden;">
                     <div style="width: 50%; float: left;">
                         <a href="<?php echo ($photoAlbumId);?>" class="admin_table_buttons edit">
                         </a>
                     </div>
                     <div style="width: 50%; float: right;">
-                        <a href="./admin_photogallery/album_delete_handler.php?id=<?php echo ($photoAlbumObject->getId());?>" class="admin_table_buttons delete needs_confirmation">
+                        <a href="./admin_photogallery/album_delete_handler.php?id=<?php echo ($album->getId());?>" class="admin_table_buttons delete needs_confirmation">
                         </a>
                     </div>
                 </div>
+                <a href="?admin_page=admin_albumPhotosList&id=<?php echo($album->getId())?>"
+                   class="admin_table title_link"
+                   id="title_<?php echo $photoAlbumId;?>">
+                    <?php echo($album->getTitle());?>
+                </a>
+
+                </br>
+                <p id="description_<?php echo $photoAlbumId;?>">
+                    <?php echo($album->getDescription());?>
+                </p>
+
             <?php } ?>
         </td>
         <?php

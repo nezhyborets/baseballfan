@@ -1,6 +1,8 @@
 <?php
 
 require_once (__DIR__.'/../config/main_config.php');
+require_once (__DIR__.'/../Model/DatabaseRecord.php');
+
 /**
  * Created by JetBrains PhpStorm.
  * User: Алексей
@@ -11,20 +13,18 @@ require_once (__DIR__.'/../config/main_config.php');
 
 class Photo extends DatabaseRecord
 {
+    //overriding
     const TABLE_NAME = 'tbl_photos';
+    const CREATION_DATE_KEY = 'date_added';
 
     const PHOTOS_FOLDER_NAME = 'photoGallery_images';
     const PHOTOS_FOLDER_PATH = '/images/photoGallery_images/';
 
-    const ID_KEY = 'id';
-    const DATE_ADDED_KEY = 'date_added';
     const DESCRIPTION_KEY = 'description';
     const IMAGE_LINK_KEY = 'image_link';
     const THUMBNAIL_LINK_KEY = 'thumbnail_link';
     const ALBUM_ID_KEY = 'photo_album_id';
 
-    private $id;
-    private $date_added;
     private $description;
     public  $image_link;
     private $thumbnail_link;
@@ -33,7 +33,7 @@ class Photo extends DatabaseRecord
     protected static function objectUsingPdoStatementRow($db, $row) {
         $photoObject = new Photo($db);
         $photoObject->id = $row[self::ID_KEY];
-        $photoObject->date_added = $row[self::DATE_ADDED_KEY];
+        $photoObject->creation_date = $row[self::CREATION_DATE_KEY];
         $photoObject->description = $row[self::DESCRIPTION_KEY];
         $photoObject->image_link = $row[self::IMAGE_LINK_KEY];
         $photoObject->thumbnail_link = $row[self::THUMBNAIL_LINK_KEY];
@@ -50,7 +50,7 @@ class Photo extends DatabaseRecord
     }
 
     public static function removeRecordAndFilesForPhotoWithId($id) {
-        $photoObject = self::photoObjectById($id);
+        $photoObject = static::photoObjectById($id);
         $photoObject->removeRecordAndFiles();
     }
 
@@ -95,7 +95,7 @@ class Photo extends DatabaseRecord
     }
 
     public static function createNewPhotoInDatabase() {
-        $query = "INSERT INTO tbl_photos (".self::DATE_ADDED_KEY.") VALUES(".time().")";
+        $query = "INSERT INTO tbl_photos (".self::CREATION_DATE_KEY.") VALUES(".time().")";
         $query_result = mysql_query ($query) or die ("Невозможно сделать запрос". mysql_error());
 
         $id = mysql_insert_id();

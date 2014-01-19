@@ -9,6 +9,9 @@ class DatabaseRecord {
     /* @var $db PDO */
     protected $db;
 
+    protected $id;
+    protected $creation_date;
+
     function __construct($db) {
         $this->db = $db;
     }

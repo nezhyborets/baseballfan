@@ -33,7 +33,7 @@
         <tr>
           <td class="pg_news_pagecount_td">
           <?php
-		      $news_pages=intval(($allRows[0]-1)/10);
+		      $news_pages=intval(($allNewsCount[0]-1)/10);
 		      $news_pages1=$news_pages+1;
 		      if ($_GET['pageNumber']) {
 			  echo ('<a href="index.php?page=news&pageNumber='.($pageNumber-1).'" class="pg_news_nextprev left">&lt Предыдущая</a>');

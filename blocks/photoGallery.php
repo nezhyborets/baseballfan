@@ -1,14 +1,19 @@
 <?php
-require_once ($_SERVER['DOCUMENT_ROOT'].'./config/main_config.php');
-require_once ($_SERVER['DOCUMENT_ROOT'].'./Model/PhotoAlbum.php');
-require_once ($_SERVER['DOCUMENT_ROOT'].'./Model/Photo.php');
+require_once (__DIR__.'/../config/main_config.php');
+require_once (__DIR__.'/../Model/PhotoAlbum.php');
+require_once (__DIR__.'/../Model/Photo.php');
 
-$allPhotoAlbums = PhotoAlbum::getAllPhotoAlbums();
+$db = db();
+$allPhotoAlbums = PhotoAlbum::allPhotoAlbums($db);
+
 echo('<table class="albums_list_table">');
 $albumsCount = count($allPhotoAlbums);
+
 for ($i = 0; $i<$albumsCount; $i++) {
+
+    /** @var $photoAlbumObject PhotoAlbum */
     $photoAlbumObject = $allPhotoAlbums[$i];
-    $photoObject = Photo::photoObjectById($photoAlbumObject->cover_photo_id);
+    $photoObject = $photoAlbumObject->cover();
     $beginningOfString = '';
     $endingOfString = '';
 

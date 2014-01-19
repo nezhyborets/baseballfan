@@ -25,8 +25,6 @@ class NewsItem extends DatabaseRecord
     const IMAGE_LINK_KEY = 'image_link';
     const THUMBNAIL_LINK_KEY = 'thumbnail_link';
 
-    private $id;
-    private $creation_date;
     private $title;
     private $short_text;
     private $text;

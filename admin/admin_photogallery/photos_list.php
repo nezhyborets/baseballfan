@@ -5,7 +5,7 @@ require_once ($_SERVER['DOCUMENT_ROOT'].'./Model/Photo.php');
 
 $albumId = intval($_GET['id']);
 $photoAlbumObject = PhotoAlbum::getPhotoAlbumById($albumId);
-$photosArray = $photoAlbumObject->getAllPhotoObjects();
+$photosArray = $photoAlbumObject->photos();
 $albumCoverPhoto = $photoAlbumObject->getCoverPhoto();
 ?>
 

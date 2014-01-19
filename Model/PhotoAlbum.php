@@ -6,18 +6,20 @@
  * Time: 14:33
  * To change this template use File | Settings | File Templates.
  */
-require_once ($_SERVER['DOCUMENT_ROOT'].'./config/main_config.php');
-require_once ($_SERVER['DOCUMENT_ROOT'].'./config/main_config.php');
-require_once ($_SERVER['DOCUMENT_ROOT'].'./Model/Photo.php');
+require_once (__DIR__.'/../config/main_config.php');
+require_once (__DIR__.'/../config/main_config.php');
+require_once (__DIR__.'/../Model/Photo.php');
+require_once (__DIR__.'/../Model/DatabaseRecord.php');
 
-class PhotoAlbum
+class PhotoAlbum extends DatabaseRecord
 {
+    //Overriding
+    const TABLE_NAME = 'tbl_photoAlbums';
+
     const COVER_PHOTO_ID_KEY = 'cover_photo_id';
     const TITLE_KEY = 'title';
     const DESCRIPTION_KEY = 'description';
 
-    private $id;
-    private $creation_date;
     public $cover_photo_id;
     private $title;
     private $description;
@@ -30,21 +32,23 @@ class PhotoAlbum
         return $this->description;
     }
 
-    public static function getAllPhotoAlbums() {
-        $query = "SELECT * FROM tbl_photoAlbums ORDER BY id DESC";
-        $query_result = mysql_query ($query)
-            or die ("Невозможно сделать запрос". mysql_error());
+    public function cover() {
+        return Photo::objectForId($this->db, $this->cover_photo_id);
+    }
 
-        $rows = mysql_num_rows($query_result);
+    public static function allPhotoAlbums($db) {
+        return static::objectsForSqlStatement($db, 'SELECT * FROM '.static::TABLE_NAME.' ORDER BY '.static::ID_KEY.' DESC');
+    }
 
-        $allPhotoAlbums = array();
-        for ($i = 0; $i < $rows; $i++) {
-            $albumFromDbResultArray = mysql_fetch_array($query_result);
-            $photoAlbumObject = self::photoAlbumByDbResultRow($albumFromDbResultArray);
-            array_push($allPhotoAlbums, $photoAlbumObject);
-        }
-
-        return $allPhotoAlbums;
+    protected static function objectUsingPdoStatementRow($db, $row) {
+        $photoAlbumObject = new PhotoAlbum($db);
+        $photoAlbumObject->id = $row[self::ID_KEY];
+        $dateTime = strtotime($row[self::CREATION_DATE_KEY]);
+        $photoAlbumObject->creation_date = date("Y-m-d H:i:s", $dateTime);
+        $photoAlbumObject->cover_photo_id = $row[self::COVER_PHOTO_ID_KEY];
+        $photoAlbumObject->title = $row[self::TITLE_KEY];
+        $photoAlbumObject->description = $row[self::DESCRIPTION_KEY];
+        return $photoAlbumObject;
     }
 
     public static function addAlbumWithNameAndDescription($name, $description) {
@@ -113,12 +117,12 @@ class PhotoAlbum
         return false;
     }
 
-    public function getAllPhotoObjects() {
-        return Photo::photosArrayForAlbumId($this->id);
+    public function photos() {
+        return Photo::photosArrayForAlbumId($this->db, $this->id);
     }
 
     private function removeAlbumAndAllPhotos() {
-        $photosArray = $this->getAllPhotoObjects();
+        $photosArray = $this->photos();
 
         foreach ($photosArray as $photo) {
             $photo->removeRecordAndFiles();

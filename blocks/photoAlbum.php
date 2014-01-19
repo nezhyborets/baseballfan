@@ -1,15 +1,22 @@
 <?php
-require_once ($_SERVER['DOCUMENT_ROOT'].'./config/main_config.php');
-require_once ($_SERVER['DOCUMENT_ROOT'].'./Model/PhotoAlbum.php');
-require_once ($_SERVER['DOCUMENT_ROOT'].'./Model/Photo.php');
+require_once (__DIR__.'/../config/main_config.php');
+require_once (__DIR__.'/../Model/PhotoAlbum.php');
+require_once (__DIR__.'/../Model/Photo.php');
 
-$albumId = intval($_GET['id']);
-$photosArray = Photo::photosArrayForAlbumId($albumId);
+$albumId = 0;
+
+if (isset($_GET['id'])) {
+    $albumId = intval($_GET['id']);
+}
+
+$db = db();
+/** @var $album PhotoAlbum */
+$album = PhotoAlbum::objectForId($db, $albumId);
+$photosArray = $album->photos();
 
 echo('<table class="albums_list_table">');
 $photosCount = count($photosArray);
 
-if ($i < 2) $i = 2;
 for ($i = 0; $i<$photosCount; $i++) {
     $photoObject = $photosArray[$i];
     $beginningOfString = '';

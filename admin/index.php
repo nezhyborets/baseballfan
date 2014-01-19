@@ -20,7 +20,7 @@
                 <a href="index.php?admin_page=admin_photoGallery" class="admin_menu_link">Фотогалерея</a>
             </td>
             <td id="admin_content">
-                <?php if ($_GET['admin_page'])
+                <?php if (isset($_GET['admin_page']))
             {
                 $pg = $_GET['admin_page'];
                 switch ($pg)

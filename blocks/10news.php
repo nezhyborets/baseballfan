@@ -23,10 +23,10 @@ $news = NewsList::allNews($db, isset($_GET['pageNumber']) ? intval($_GET['pageNu
 <div id="pg_news_content">
     <?php
 
-    for ($row = count($news); $row >= 1; $row--) {
+    for ($row =0; $row < count($news); $row++) {
 
         /** @var $newsItem NewsItem */
-        $newsItem = $news[$row - 1];
+        $newsItem = $news[$row];
 
         $comments_count = $newsItem->commentsCount();
 
